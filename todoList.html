@@ -30,155 +30,106 @@
 
     <ul id="todo-list-ul"></ul>
 
+    <script src="script.js"></script>
     <script>
-      const todosObject = {
-        todos: [
-          {
-            todoText: "Item 1",
-            complited: false,
-          },
+      // let todo = {
+      //   todos: [
+      //     { todoText: "Item 1", completed: false },
+      //     { todoText: "Item 2", completed: false },
+      //     { todoText: "Item 3", completed: false },
+      //   ],
+      //   add: function (text) {
+      //     this.todos.push(text);
+      //   },
+      //   edit: function (position, newText) {
+      //     this.todos[position].todoText = newText;
+      //   },
+      //   remove: function (position) {
+      //     this.todos.splice(position, 1);
+      //   },
+      //   toggle: function (position) {
+      //     todo.todos[position].completed === false
+      //       ? (todo.todos[position].completed = true)
+      //       : (todo.todos[position].completed = false);
+      //   },
+      // };
 
-          {
-            todoText: "Item 2",
-            complited: false,
-          },
-
-          {
-            todoText: "Item 3",
-            complited: false,
-          },
-        ],
-
-        add(initialTodoText) {
-          this.todos.push({ todoText: initialTodoText, complited: false });
-        },
-
-        edit(pos, newValue) {
-          this.todos[pos].todoText = newValue;
-        },
-
-        remove(pos) {
-          this.todos.splice(pos, 1);
-        },
-
-        toggle(position) {
-          const toggle = this.todos[position].complited;
-          this.todos[position].complited = !toggle;
-        },
-
-        toggleAll() {
-          let toggleTo = !isAllComplited();
-          for (let i = 0; i < this.todos.length; ++i) {
-            this.todos[i].complited = toggleTo;
-          }
-        },
-      };
-
-      function displayTodos() {
-        let todosUL = document.getElementById("todo-list-ul");
-
-        todosUL.innerHTML = "";
-
-        for (let i = 0; i < todosObject.todos.length; ++i) {
-          const todoLI = document.createElement("li");
-          todosObject.todos[i].complited
-            ? (todoLI.innerText = "[x] " + todosObject.todos[i].todoText)
-            : (todoLI.innerText = "[] " + todosObject.todos[i].todoText);
-
-          let removeButton = document.createElement("button");
-          removeButton.innerText = `remove`;
-          removeButton.id = i;
-          removeButton.addEventListener("click", removeTodo);
-
-          let toggleButton = document.createElement("button");
-          toggleButton.innerText = "Toggle";
-          todoLI.appendChild(toggleButton);
-          todoLI.appendChild(removeButton);
-          todosUL.appendChild(todoLI);
-        }
-      }
-
-      function addTodo() {
-        const addInput = document.getElementById("add-input");
-        let initialTodoText = addInput.value;
-        todosObject.add(initialTodoText);
-        addInput.value = "";
-        displayTodos();
-      }
-
-      function editTodo() {
-        const editPositionInput = document.getElementById(
-          "edit-position-input"
-        );
-        const editTextInput = document.getElementById("edit-text-input");
-        let pos = editPositionInput.value;
-        let newValue = editTextInput.value;
-        todosObject.edit(pos, newValue);
-
-        editPositionInput.value = "";
-        editTextInput.value = "";
-        displayTodos();
-      }
-
-      function removeTodo(event) {
-        console.log(`New remove function is running`);
-
-        let position = event.target.id;
-        todosObject.remove(position, 1);
-        displayTodos();
-      }
-
-      // function removeTodo() {
-      //   const removeInput = document.getElementById("remove-input");
-
-      //   todosObject.remove(removeInput.value);
-      //   // todos.splice(removeInput.value, 1);
-      //   removeInput.value = "";
+      // function remove(event) {
+      //   todo.remove(event.target.value);
+      //   displayTodos();
       // }
 
-      function toggleTodo() {
-        const toggleInput = document.getElementById("toggle-input");
+      // function add() {
+      //   let initialTodoText = document.getElementById("add-input").value;
+      //   todo.add({ todoText: initialTodoText, completed: false });
+      //   initialTodoText.value = "";
+      // }
 
-        const position = toggleInput.value;
-        todosObject.toggle(position);
-        toggleInput.value = "";
-      }
+      // function edit() {
+      //   let newTodoText = document.getElementById("edit-text-input").value;
+      //   let position = document.getElementById("edit-position-input").value;
+      //   todo.edit(position, newTodoText);
+      // }
 
-      function toggleAllTodos() {
-        todosObject.toggleAll();
-        displayTodos();
-      }
+      // function toggle(event) {
+      //   todo.toggle(event.target.value);
+      //   displayTodos();
+      // }
 
-      function isAllComplited() {
-        for (let i = 0; i < todosObject.todos.length; ++i) {
-          if (todosObject.todos[i].complited === false) {
-            return false;
-          }
-        }
-        return true;
-      }
+      // function displayTodos() {
+      //   let todosUl = document.getElementById("todo-list-ul");
+      //   todosUl.innerHTML = "";
 
-      document
-        .getElementById("display-todos-button")
-        .addEventListener("click", displayTodos);
+      //   for (let i = 0; i < todo.todos.length; i++) {
+      //     let li = createLi();
+      //     li.innerText =
+      //       todo.todos[i].completed === true
+      //         ? "[X] " + todo.todos[i].todoText
+      //         : "[ ] " + todo.todos[i].todoText;
+      //     todosUl.appendChild(li);
 
-      document
-        .getElementById("toggleAll-button")
-        .addEventListener("click", toggleAllTodos);
+      //     let buttonRemove = createButton("Remove");
+      //     li.appendChild(buttonRemove);
+      //     buttonRemove.value = i;
 
-      document.getElementById("add-button").addEventListener("click", addTodo);
+      //     let buttonToggle = createButton("Toggle");
+      //     li.appendChild(buttonToggle);
+      //     buttonToggle.value = i;
 
-      document
-        .getElementById("edit-button")
-        .addEventListener("click", editTodo);
+      //     buttonRemove.addEventListener("click", remove);
+      //     buttonToggle.addEventListener("click", toggle);
+      //   }
+      // }
+
+      // function createButton(text) {
+      //   let button = document.createElement("button");
+      //   button.innerText = text;
+      //   return button;
+      // }
+
+      // function createLi() {
+      //   let li = document.createElement("li");
+      //   return li;
+      // }
+
+      // // function togleAll() {
+      // //     todo.toggleAll();
+      // // }
+
+      // // function newTogleAll() {
+      // //     for(let i = 0; i < todos.length; i++) {
+      // //         todos[i].completed = toggleTo;
+      // //     }
+      // // }
 
       // document
-      //   .getElementById("remove-button")
-      //   .addEventListener("click", removeTodo);
-
-      document
-        .getElementById("toggle-button")
-        .addEventListener("click", toggleTodo);
+      //   .getElementById("display-todos-button")
+      //   .addEventListener("click", displayTodos);
+      // document
+      //   .getElementById("toggle-all-button")
+      //   .addEventListener("click", togleAll);
+      // document.getElementById("add-button").addEventListener("click", add);
+      // document.getElementById("edit-button").addEventListener("click", edit);
     </script>
   </body>
 </html>
