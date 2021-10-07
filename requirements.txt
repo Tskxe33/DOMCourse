@@ -1,6 +1,15 @@
+Version 12 
+[x] Each todo should have its own edit button
+[x] The edit buttons should actually work
+[x] if someone hits cancel we sshould do nothing
+
+Version 11 
+[x] Each todo should have its own toggle button
+[x] The toggle buttons should actually work
+
 Version 10 
-[] Each todo should its own remove button
-[] The remove buttons should actually work
+[x] Each todo should have its own remove button
+[x] The remove buttons should actually work
 
 Version 9 
 [x] there should be an li for each todo

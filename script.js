@@ -51,23 +51,22 @@ function toggleTodo(event) {
   displayTodos();
 }
 
-function addTodo() {
-  const addInput = document.getElementById("add-input");
-  let initialTodoText = addInput.value;
-  todosObject.add(initialTodoText);
-  addInput.value = "";
-  displayTodos();
-}
+function editTodo(event) {
+  const newValue = prompt(
+    "New Value:",
+    todosObject.todos[event.target.value].todoText
+  );
 
-function editTodo() {
-  const editPositionInput = document.getElementById("edit-position-input");
-  const editTextInput = document.getElementById("edit-text-input");
-  let pos = editPositionInput.value;
-  let newValue = editTextInput.value;
-  todosObject.edit(pos, newValue);
+  //   if (newValue || newValue === "") {
+  //     todosObject.todos[event.target.value].todoText;
+  //   } else {
+  //     todosObject.edit(event.target.value, newValue);
+  //   }
 
-  editPositionInput.value = "";
-  editTextInput.value = "";
+  newValue
+    ? todosObject.edit(event.target.value, newValue)
+    : todosObject.todos[event.target.value].todoText;
+
   displayTodos();
 }
 
@@ -92,8 +91,13 @@ function displayTodos() {
     todoLI.appendChild(toggleButton);
     toggleButton.value = i;
 
+    let editButton = createButton("edit");
+    todoLI.appendChild(editButton);
+    editButton.value = i;
+
     removeButton.addEventListener("click", removeTodo);
     toggleButton.addEventListener("click", toggleTodo);
+    editButton.addEventListener("click", editTodo);
   }
 }
 
@@ -118,6 +122,26 @@ function createButton(text) {
 //   // todos.splice(removeInput.value, 1);
 //   removeInput.value = "";
 // }
+
+function addTodoButton() {
+  const addInput = document.getElementById("add-input");
+  let initialTodoText = addInput.value;
+  todosObject.add(initialTodoText);
+  addInput.value = "";
+  displayTodos();
+}
+
+function editTodoButton() {
+  const editPositionInput = document.getElementById("edit-position-input");
+  const editTextInput = document.getElementById("edit-text-input");
+  let pos = editPositionInput.value;
+  let newValue = editTextInput.value;
+  todosObject.edit(pos, newValue);
+
+  editPositionInput.value = "";
+  editTextInput.value = "";
+  displayTodos();
+}
 
 function toggleTodoButton() {
   const toggleInput = document.getElementById("toggle-input");
@@ -149,9 +173,11 @@ document
   .getElementById("toggleAll-button")
   .addEventListener("click", toggleAllTodos);
 
-document.getElementById("add-button").addEventListener("click", addTodo);
+document.getElementById("add-button").addEventListener("click", addTodoButton);
 
-document.getElementById("edit-button").addEventListener("click", editTodo);
+// document
+//   .getElementById("edit-button")
+//   .addEventListener("click", editTodoButton);
 
 // document.getElementById("remove-button").addEventListener("click", removeTodo);
 
