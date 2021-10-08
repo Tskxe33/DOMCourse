@@ -42,30 +42,24 @@ const todosObject = {
 };
 
 function removeTodo(event) {
-  todosObject.remove(event.target.value);
+  let position = event.target.parentElement.id.slice("todo-".length);
+  todosObject.remove(position);
   displayTodos();
 }
 
 function toggleTodo(event) {
-  todosObject.toggle(event.target.value);
+  todosObject.toggle(event.target.parentElement.id.substring("todo-".length));
   displayTodos();
 }
 
 function editTodo(event) {
-  const newValue = prompt(
-    "New Value:",
-    todosObject.todos[event.target.value].todoText
-  );
-
-  //   if (newValue || newValue === "") {
-  //     todosObject.todos[event.target.value].todoText;
-  //   } else {
-  //     todosObject.edit(event.target.value, newValue);
-  //   }
+  let position = event.target.parentElement.id.substring("todo-".length);
+  console.log(position);
+  const newValue = prompt("New Value:", todosObject.todos[position].todoText);
 
   newValue
-    ? todosObject.edit(event.target.value, newValue)
-    : todosObject.todos[event.target.value].todoText;
+    ? todosObject.edit(position, newValue)
+    : todosObject.todos[position].todoText;
 
   displayTodos();
 }
@@ -74,26 +68,30 @@ function displayTodos() {
   let todosUL = document.getElementById("todo-list-ul");
   todosUL.innerHTML = "";
 
+  let liTodoId = "todo-";
+
   for (let i = 0; i < todosObject.todos.length; ++i) {
-    const todoLI = document.createElement("li");
+    let todoLI = document.createElement("li");
 
     todosObject.todos[i].complited
       ? (todoLI.innerText = "[x] " + todosObject.todos[i].todoText)
       : (todoLI.innerText = "[] " + todosObject.todos[i].todoText);
 
+    todoLI.id = liTodoId + i;
+
     todosUL.appendChild(todoLI);
 
     let removeButton = createButton("remove");
     todoLI.appendChild(removeButton);
-    removeButton.value = i;
+    // removeButton.value = i;
 
     let toggleButton = createButton("toggle");
     todoLI.appendChild(toggleButton);
-    toggleButton.value = i;
+    // toggleButton.value = i;
 
     let editButton = createButton("edit");
     todoLI.appendChild(editButton);
-    editButton.value = i;
+    // editButton.value = i;
 
     removeButton.addEventListener("click", removeTodo);
     toggleButton.addEventListener("click", toggleTodo);
