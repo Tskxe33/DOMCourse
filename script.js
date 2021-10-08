@@ -41,20 +41,30 @@ const todosObject = {
   },
 };
 
+
+let liTodoPrefix = "todo-";
+
+function addTodoPrefix(id,prefix){
+  return id.substring(prefix.length);
+}
+
 function removeTodo(event) {
-  let position = event.target.parentElement.id.slice("todo-".length);
+  // let position = event.target.parentElement.id.substring(liTodoPrefix.length);
+  let position = addTodoPrefix(event.target.parentElement.id,liTodoPrefix)
+
   todosObject.remove(position);
   displayTodos();
 }
 
 function toggleTodo(event) {
-  todosObject.toggle(event.target.parentElement.id.substring("todo-".length));
+  // todosObject.toggle(event.target.parentElement.id.substring(liTodoPrefix.length));
+  todosObject.toggle(addTodoPrefix(event.target.parentElement.id,liTodoPrefix))
   displayTodos();
 }
 
 function editTodo(event) {
-  let position = event.target.parentElement.id.substring("todo-".length);
-  console.log(position);
+  // let position = event.target.parentElement.id.substring(liTodoPrefix.length);
+  let position = addTodoPrefix(event.target.parentElement.id,liTodoPrefix)
   const newValue = prompt("New Value:", todosObject.todos[position].todoText);
 
   newValue
@@ -64,32 +74,37 @@ function editTodo(event) {
   displayTodos();
 }
 
+function displaylistItem(i,todoLI){
+  todosObject.todos[i].complited
+  ? (todoLI.innerText = "[x] " + todosObject.todos[i].todoText)
+  : (todoLI.innerText = "[] " + todosObject.todos[i].todoText);
+}
+
+
+
 function displayTodos() {
   let todosUL = document.getElementById("todo-list-ul");
   todosUL.innerHTML = "";
 
-  let liTodoId = "todo-";
 
   for (let i = 0; i < todosObject.todos.length; ++i) {
     let todoLI = document.createElement("li");
 
-    todosObject.todos[i].complited
-      ? (todoLI.innerText = "[x] " + todosObject.todos[i].todoText)
-      : (todoLI.innerText = "[] " + todosObject.todos[i].todoText);
+   displaylistItem(i,todoLI)
 
-    todoLI.id = liTodoId + i;
+    todoLI.id = liTodoPrefix + i;
 
     todosUL.appendChild(todoLI);
 
-    let removeButton = createButton("remove");
+    let removeButton = createRemoveButton()
     todoLI.appendChild(removeButton);
     // removeButton.value = i;
 
-    let toggleButton = createButton("toggle");
+    let toggleButton = createToggleButton()
     todoLI.appendChild(toggleButton);
     // toggleButton.value = i;
 
-    let editButton = createButton("edit");
+    let editButton = createEditButton()
     todoLI.appendChild(editButton);
     // editButton.value = i;
 
@@ -103,6 +118,21 @@ function createButton(text) {
   const button = document.createElement("button");
   button.innerText = text;
   return button;
+}
+
+function createRemoveButton(){
+  let removeButton = createButton("remove");
+  return removeButton;
+}
+
+function createToggleButton(){
+  let toggleButton = createButton("toggle");
+  return toggleButton;
+}
+
+function createEditButton(){
+  let editButton = createButton("edit");
+  return editButton;
 }
 
 // function removeTodo(event) {
@@ -173,9 +203,9 @@ document
 
 document.getElementById("add-button").addEventListener("click", addTodoButton);
 
-// document
-//   .getElementById("edit-button")
-//   .addEventListener("click", editTodoButton);
+document
+  .getElementById("edit-button")
+  .addEventListener("click", editTodoButton);
 
 // document.getElementById("remove-button").addEventListener("click", removeTodo);
 
