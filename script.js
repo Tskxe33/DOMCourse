@@ -50,8 +50,8 @@ function addTodoPrefix(id,prefix){
 
 function removeTodo(event) {
   // let position = event.target.parentElement.id.substring(liTodoPrefix.length);
-  let position = addTodoPrefix(event.target.parentElement.id,liTodoPrefix)
-
+  let position = addTodoPrefix(event.target.value,liTodoPrefix)
+  console.log(position);
   todosObject.remove(position);
   displayTodos();
 }
@@ -98,19 +98,38 @@ function displayTodos() {
 
     let removeButton = createRemoveButton()
     todoLI.appendChild(removeButton);
-    // removeButton.value = i;
+    removeButton.value = `remove`;
+    
 
     let toggleButton = createToggleButton()
     todoLI.appendChild(toggleButton);
-    // toggleButton.value = i;
+    toggleButton.value = `toggle`;
 
     let editButton = createEditButton()
     todoLI.appendChild(editButton);
-    // editButton.value = i;
+    editButton.value =  `edit`;
 
-    removeButton.addEventListener("click", removeTodo);
-    toggleButton.addEventListener("click", toggleTodo);
-    editButton.addEventListener("click", editTodo);
+    todosUL.addEventListener('click',function(event){
+      const target = event.target.value;
+      const parentElement = event.target.parentElement
+      switch(target){
+        case 'remove': {
+          // removeButton.addEventListener("click", removeTodo);
+          return removeTodo()
+        }
+        case 'toggle': {
+          toggleButton.addEventListener("click", toggleTodo);
+          break;
+        }
+        case 'edit': {
+          editButton.addEventListener("click", editTodo);
+          break;
+        }
+      }
+    })
+    // removeButton.addEventListener("click", removeTodo);
+    // toggleButton.addEventListener("click", toggleTodo);
+    // editButton.addEventListener("click", editTodo);
   }
 }
 
