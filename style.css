@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: #2980b9;
+  color: #777;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  color: #fff;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgb(0, 0, 0, 0.8)),
+    url(https://images.unsplash.com/photo-1587150011803-07da1a83a4e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80);
+  background-size: cover;
+  background-position: center;
+  line-height: 1.7;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-input {
+  padding: 1rem 2rem;
+  font-size: 1.8rem;
+  border-radius: 50rem;
+  color: #444;
+  border: none;
+  outline: none;
+  margin-left: 1rem;
+}
+
+.display-todos-btn,
+.add-button,
+.toggleAll-button {
+  margin-left: 2rem;
+  margin-bottom: 5rem;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  border: none;
+  border-radius: 50rem;
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.li {
+  font-size: 2.3rem;
+  list-style: none;
+  margin: 1rem 2rem;
+}
+
+.remove,
+.toggle,
+.edit {
+  margin: 0 1rem;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.remove {
+  margin-left: 5rem;
+  background-color: #eb4d4b;
+  color: #fff;
+}
+
+.toggle {
+  background-color: #7ed6df;
+  color: #444;
+}
+
+.edit {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+/* ---------------------MODAL--------------------- */
+
+.hidden {
+  display: none;
+}
+
+.modal__heading {
+  margin-bottom: 4rem;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.2rem;
+}
+
+#editTodo {
+  padding: 1rem 2rem;
+  border: 2px solid #2980b9;
+  width: 100%;
+  outline: none;
+  border-radius: 50rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  color: #555;
+  width: 30%;
+  background-color: white;
+  padding: 6rem;
+  border-radius: 5px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.close-modal {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  font-size: 5rem;
+  color: #333;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
