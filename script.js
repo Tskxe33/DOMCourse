@@ -44,27 +44,24 @@ const todosObject = {
 
 let liTodoPrefix = "todo-";
 
-function addTodoPrefix(id,prefix){
-  return id.substring(prefix.length);
-}
 
 function removeTodo(event) {
-  // let position = event.target.parentElement.id.substring(liTodoPrefix.length);
-  let position = addTodoPrefix(event.target.value,liTodoPrefix)
+  let position = event.target.parentElement.id.substring(liTodoPrefix.length);
   console.log(position);
+  // let position = addTodoPrefix(event.target.value,liTodoPrefix)
   todosObject.remove(position);
   displayTodos();
 }
 
 function toggleTodo(event) {
-  // todosObject.toggle(event.target.parentElement.id.substring(liTodoPrefix.length));
-  todosObject.toggle(addTodoPrefix(event.target.parentElement.id,liTodoPrefix))
+  todosObject.toggle(event.target.parentElement.id.substring(liTodoPrefix.length));
+  // todosObject.toggle(addTodoPrefix(event.target.parentElement.id,liTodoPrefix))
   displayTodos();
 }
 
 function editTodo(event) {
-  // let position = event.target.parentElement.id.substring(liTodoPrefix.length);
-  let position = addTodoPrefix(event.target.parentElement.id,liTodoPrefix)
+  let position = event.target.parentElement.id.substring(liTodoPrefix.length);
+  // let position = addTodoPrefix(event.target.parentElement.id,liTodoPrefix)
   const newValue = prompt("New Value:", todosObject.todos[position].todoText);
 
   newValue
@@ -75,6 +72,8 @@ function editTodo(event) {
 }
 
 function displaylistItem(i,todoLI){
+  todoLI.id = liTodoPrefix + i;
+
   todosObject.todos[i].complited
   ? (todoLI.innerText = "[x] " + todosObject.todos[i].todoText)
   : (todoLI.innerText = "[] " + todosObject.todos[i].todoText);
@@ -82,55 +81,61 @@ function displaylistItem(i,todoLI){
 
 
 
+
 function displayTodos() {
   let todosUL = document.getElementById("todo-list-ul");
   todosUL.innerHTML = "";
-
-
+  
   for (let i = 0; i < todosObject.todos.length; ++i) {
     let todoLI = document.createElement("li");
-
-   displaylistItem(i,todoLI)
-
-    todoLI.id = liTodoPrefix + i;
-
+    
+    displaylistItem(i,todoLI)
+    // todoLI.id = liTodoPrefix + i;
     todosUL.appendChild(todoLI);
 
     let removeButton = createRemoveButton()
     todoLI.appendChild(removeButton);
-    removeButton.value = `remove`;
+    removeButton.name = `remove`;
     
 
     let toggleButton = createToggleButton()
     todoLI.appendChild(toggleButton);
-    toggleButton.value = `toggle`;
+    toggleButton.name = `toggle`;
 
     let editButton = createEditButton()
     todoLI.appendChild(editButton);
-    editButton.value =  `edit`;
+    editButton.name =  `edit`;
 
-    todosUL.addEventListener('click',function(event){
-      const target = event.target.value;
-      const parentElement = event.target.parentElement
-      switch(target){
-        case 'remove': {
-          // removeButton.addEventListener("click", removeTodo);
-          return removeTodo()
-        }
-        case 'toggle': {
-          toggleButton.addEventListener("click", toggleTodo);
-          break;
-        }
-        case 'edit': {
-          editButton.addEventListener("click", editTodo);
-          break;
-        }
-      }
-    })
+
     // removeButton.addEventListener("click", removeTodo);
     // toggleButton.addEventListener("click", toggleTodo);
     // editButton.addEventListener("click", editTodo);
   }
+  todosUL.addEventListener('click',function(event){
+    const target = event.target.name;
+    if(target === `remove`){
+      removeTodo(event)
+    } 
+
+    if(target === `toggle`){
+      toggleTodo(event)
+    }
+
+    // switch(event.target.name){
+    //   case 'remove': {
+    //     // removeButton.addEventListener("click", removeTodo);
+    //     return removeTodo(event.target)
+    //   }
+    //   case 'toggle': {
+    //     toggleButton.addEventListener("click", toggleTodo);
+    //     break;
+    //   }
+    //   case 'edit': {
+    //     editButton.addEventListener("click", editTodo);
+    //     break;
+    //   }
+    // }
+  })
 }
 
 function createButton(text) {
